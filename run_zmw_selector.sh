@@ -68,7 +68,7 @@ for PEAK_SET in "${PEAK_SETS[@]}"; do
         fi
 
         # Run zmw_selector_per_BAM.py
-        CMD="python $BASE_PATH/zmw_selector_per_BAM.py $SITES_FILE $CHROM_SIZES_FILE $BAM_FILE $WINDOW_SIZE > $OUTPUT_FILE"
+        CMD="python $BASE_PATH/zmw_selector_updated.py $SITES_FILE $CHROM_SIZES_FILE $BAM_FILE $WINDOW_SIZE > $OUTPUT_FILE"
         echo "Running command: $CMD"
         eval "$CMD"
         if [ $? -ne 0 ]; then
