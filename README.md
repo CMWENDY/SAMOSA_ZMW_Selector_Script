@@ -11,6 +11,29 @@ EBF2 transcription-factor-binding project at the [Ramani Lab, Gladstone Institut
 UCSF](https://github.com/RamaniLab), part of a research project on EBF2 binding site
 accessibility across brown fat cell differentiation.
 
+## Three terms used throughout
+
+These three terms come up constantly below, so they are worth defining up front. No biology
+background is needed to follow the rest of this README.
+
+**ZMW (zero-mode waveguide)** — a single well on a PacBio sequencing chip. Each well holds one
+DNA molecule and produces one read. Every well has a *hole number*, embedded in the read name
+(`movie/holeNumber/qStart_qEnd`) so it works as the read's ID.
+
+**`.bam`** — the data file. A compressed table with one row per sequencing read: the read's
+name, where it aligns on the reference genome, and the read itself.
+
+**`.bai`** — the index file that sits next to a `.bam`, used to look up reads quickly without
+scanning the whole file. `generate_index()` is what keeps it valid.
+
+## Architecture
+
+![Architecture of the SAMOSA ZMW Selector: inputs feed a PBS batch runner, which invokes the Python selection tool once per data file; inside, the tool validates the BAM index, selects reads in a window around each site, and writes one row per match to a tab-separated output file.](docs/architecture.png)
+
+Highlighted in orange are this repository's additions on top of the Ramani Lab's original
+selection script: the automatic index validation, and the batch runner that wraps the whole
+thing. See [Attribution](#attribution) for the full breakdown.
+
 ## What's in this repo
 
 - **`zmw_selector_updated.py`** — the ZMW-selection script, refactored from the lab's original
